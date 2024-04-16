@@ -78,3 +78,21 @@ func TestBufferedChannel(t *testing.T) {
 	fmt.Println("Buffered Channel : ", len(channel), cap(channel))
 	fmt.Println("Selesai")
 }
+
+func TestRangeChannel(t *testing.T) {
+	channel := make(chan string)
+
+	go func() {
+		for i := 1; i <= 1000; i++ {
+			channel <- fmt.Sprintf("Perulangan ke %d", i)
+		}
+		close(channel)
+	}()
+
+	for data := range channel {
+		fmt.Println("Menerima data", data)
+	}
+
+	fmt.Println("Selesai")
+
+}
